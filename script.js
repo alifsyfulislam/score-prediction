@@ -121,7 +121,7 @@ teamA_icon = document.getElementById('teamA_icon');
 teamB_icon = document.getElementById('teamB_icon');
 
 
-var country = ["অস্ট্রেলিয়া","আফগানিস্তান","বাংলাদেশ","ইংল্যান্ড","ভারত","নিউজিল্যান্ড","পাকিস্তান","দক্ষিন আফ্রিকা","শ্রীলঙ্কা","ওয়েস্ট ইন্ডিজ"];
+var country = ["আফগানিস্তান","অস্ট্রেলিয়া","বাংলাদেশ","ইংল্যান্ড","ভারত","নিউজিল্যান্ড","পাকিস্তান","দক্ষিন আফ্রিকা","শ্রীলঙ্কা","ওয়েস্ট ইন্ডিজ"];
 var country_flag = [
     "images/flag/0.png",
     "images/flag/1.png",
@@ -152,22 +152,111 @@ country_flag[1188] = "images/flag/0.png";
 country_icon[1188] = "images/flag-icon/0.png"
 country[1188] = "আফগানিস্তান";
 
+var today = new Date();
+var currDate = today.getDate();
+
+if (currDate == 1) {
+    teamA_s.innerHTML = "SL";
+    teamB_s.innerHTML = "WI";
+    teamA_name.innerHTML = country[8];
+    teamB_name.innerHTML = country[9];
+    teamA_img.src = url + country_flag[8];
+    teamB_img.src = url + country_flag[9];
+    teamA_icon.src = url + country_icon[8];
+    teamB_icon.src = url + country_icon[9];
+}
+
+if (currDate == 2) {
+    teamA_s.innerHTML = "BAN";
+    teamB_s.innerHTML = "IND";
+    teamA_name.innerHTML = country[2];
+    teamB_name.innerHTML = country[4];
+    teamA_img.src = url + country_flag[2];
+    teamB_img.src = url + country_flag[4];
+    teamA_icon.src = url + country_icon[2];
+    teamB_icon.src = url + country_icon[4];
+}
+
+
+if (currDate == 3) {
+    teamA_s.innerHTML = "ENG";
+    teamB_s.innerHTML = "NZ";
+    teamA_name.innerHTML = country[3];
+    teamB_name.innerHTML = country[5];
+    teamA_img.src = url + country_flag[3];
+    teamB_img.src = url + country_flag[5];
+    teamA_icon.src = url + country_icon[3];
+    teamB_icon.src = url + country_icon[5];
+}
+
+
+if (currDate == 4) {
+    teamA_s.innerHTML = "AGF";
+    teamB_s.innerHTML = "WI";
+    teamA_name.innerHTML = country[1188];
+    teamB_name.innerHTML = country[9];
+    teamA_img.src = url + country_flag[1188];
+    teamB_img.src = url + country_flag[9];
+    teamA_icon.src = url + country_icon[1188];
+    teamB_icon.src = url + country_icon[9];
+}
+
+if (currDate == 5) {
+    teamA_s.innerHTML = "PAK";
+    teamB_s.innerHTML = "BAN";
+    teamA_name.innerHTML = country[6];
+    teamB_name.innerHTML = country[2];
+    teamA_img.src = url + country_flag[6];
+    teamB_img.src = url + country_flag[2];
+    teamA_icon.src = url + country_icon[6];
+    teamB_icon.src = url + country_icon[2];
+}
+
+
+if (currDate == 6) {
+    teamA_s.innerHTML = "SL";
+    teamB_s.innerHTML = "IND";
+    teamA_name.innerHTML = country[8];
+    teamB_name.innerHTML = country[4];
+    teamA_img.src = url + country_flag[8];
+    teamB_img.src = url + country_flag[4];
+    teamA_icon.src = url + country_icon[8];
+    teamB_icon.src = url + country_icon[4];
+}
+
+if (currDate == 30) {
+    teamA_s.innerHTML = "ENG";
+    teamB_s.innerHTML = "IND";
+    teamA_name.innerHTML = country[3];
+    teamB_name.innerHTML = country[4];
+    teamA_img.src = url + country_flag[3];
+    teamB_img.src = url + country_flag[4];
+    teamA_icon.src = url + country_icon[3];
+    teamB_icon.src = url + country_icon[4];
+}
+
+
+
+
+
 
 var evtSource = new EventSource("https://www.wizardsbd.com/banners/bpl/index.php");
 evtSource.onmessage = function(e) {
     data = JSON.parse(e.data);
     guess = (predictor ==1) ? data.teama_short : data.teamb_short;
+	
+	if (data.hasOwnProperty("teama_Id")) {
+		teamA_s.innerHTML = data.teama_short;
+		teamB_s.innerHTML = data.teamb_short;
+		teamA_name.innerHTML = country[data.teama_Id];
+		teamB_name.innerHTML = country[data.teamb_Id];
 
-    teamA_s.innerHTML = data.teama_short;
-    teamB_s.innerHTML = data.teamb_short;
-    teamA_name.innerHTML = country[data.teama_Id];
-    teamB_name.innerHTML = country[data.teamb_Id];
+		teamA_img.src = url + country_flag[data.teama_Id];
+		teamB_img.src = url + country_flag[data.teamb_Id];
 
-    teamA_img.src = url + country_flag[data.teama_Id];
-    teamB_img.src = url + country_flag[data.teamb_Id];
-
-    teamA_icon.src = url + country_icon[data.teama_Id];
-    teamB_icon.src = url + country_icon[data.teamb_Id];
+		teamA_icon.src = url + country_icon[data.teama_Id];
+		teamB_icon.src = url + country_icon[data.teamb_Id];
+	}
 
     run.innerHTML = data.hasOwnProperty("inn_team_1") && data.inn_score_1 !='' ? data.inn_score_1.replace(/[^0-9/(.)]/g, '') : 'DNB';
     run2.innerHTML = data.hasOwnProperty("inn_team_2") && data.inn_score_2 !='' ? data.inn_score_2.replace(/[^0-9/(.)]/g, '') : 'DNB';
